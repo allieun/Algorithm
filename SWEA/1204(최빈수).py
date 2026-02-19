@@ -4,8 +4,9 @@
 풀이 방법: 카운팅 정렬을 활용해서 풀면 될 거 같다고 생각
 
 1. 입력 숫자의 빈도수를 체크할 카운팅 리스트 생성
-2. 카운트 리스트의 에
-
+2. 카운트 리스트의 인덱스에 입력 받은 리스트의 숫자가 나올 때 마다 해당 인덱스 값에 +1
+3. 카운트 리스트의 가장 큰 값을 가진 점수 출력
+4. 만약 최빈수가 여러개라면 리스트를 역순해 가장 큰 인덱스 값을 출력
 '''
 
 t = int(input())
@@ -22,10 +23,9 @@ for tc in range(1, t+1):
 
     max_num = max(count)
 
-    for i in range(len(count)-1, -1, -1):
+    for i in range(len(count)-1, -1, -1):       # 역순으로 순회하는 이유는 최빈수가 여러개가 있다고 한다면 가장 큰 카드를 정답으로 하기 위해서
         if count[i] == max_num:
             answer = i
             break
-        answer = count.index(max(count))
 
     print(f'#{tc} {answer}')
