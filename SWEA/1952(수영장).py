@@ -13,21 +13,22 @@
     1) 전부 1일권으로 구매했을 때
     2) 전부 1개월 권으로 구매했을 때
     3) 전부 3개월 권으로 구매 했을 때
+6. 이 함수에서는 global로 min_price를 불러와서 각각의 케이스와 비교 후 최소비용을 확정
 
 '''
 def price(month, current_sum):
-    global min_price
+    global min_price                      # tc에서 min_price로 지정한 price_list[3] 불러오기  = 1년권 금액
 
-    if current_sum >= min_price:
+    if current_sum >= min_price:          # 지금 더한 가격이 min_price 값 보다 크면 이 조건문 종료
         return
-    if month >= 12:
-        if current_sum < min_price:
+    if month >= 12:                       # 월의 수가 12를 지난다면?
+        if current_sum < min_price:       # 이 경우에서 min_price보다 현재 값이 작다면 그것을 min_price로 변경
             min_price = current_sum
-        return
+        return                            # 조건문 종료
     
-    price(month+1, current_sum + (month_list[month] * price_list[0]))
-    price(month+1, current_sum + price_list[1])
-    price(month+3, current_sum + price_list[2])
+    price(month+1, current_sum + (month_list[month] * price_list[0]))       # 1일권으로만 구매했을 때
+    price(month+1, current_sum + price_list[1])                             # 1개월권으로만 구매했을 때
+    price(month+3, current_sum + price_list[2])                             # 3개월 권으로만 구매했을 때
 
 
 
@@ -35,11 +36,11 @@ def price(month, current_sum):
 t = int(input())
 
 for tc in range(1, t+1):
-    price_list = list(map(int, input().split()))
-    month_list = list(map(int, input().split()))
+    price_list = list(map(int, input().split()))          # 이용권 가격 4가지 입력 받기
+    month_list = list(map(int, input().split()))          # 월별 이용 일수 입력받기
 
-    min_price = price_list[3]
+    min_price = price_list[3]                             # 최저금액을 1년권 금액으로 임시 지정(이용권 가격들 중 가장 비싸기 때문)
 
-    price(0, 0)
+    price(0, 0)                                           # 현재 금액 0원, 1월 1일 부터 시작
 
     print(f'#{tc} {min_price}')

@@ -7,25 +7,29 @@
 1. 일단 맨 위가 1로 채워진 리스트에서 시작해도 될 듯 하다.
 2. 양 끝은 항상 1이라는 사실을 기억해야 한다.
 3. n 을 입력받은 후 일단 1차원 배열에서 맨 윗단이 채워진 리스트를 하나 생성한다
-4. 그 리스트를 제외한 n의 범위에서 이전 리스트의 값을 가져오는 변수를 설정한다.
-5. 
+4. 그 리스트를 제외한 n의 범위에서 이전 리스트의 값(파스칼 리스트의 값)을 가져오는 변수를 설정한다.
+5. 이전 리스트 값을 가져와 그 값과 그 다음 값을 더한 값을 새로운 리스트에 추가하고(append)
+6. 새로운 리스트 끝에 1을 붙인다.
+7. 새로운 리스트을 기존에 1이 들어있던 리스트에 추가하고
+8. 기존 리스트의 행을 언패킹 한 다음 출력한다.
+
 '''
 
 t = int(input())
 
 for tc in range(1, t+1):
     n = int(input())
-    pascal = [[1]]
+    pascal = [[1]]                # 파스칼 삼각형의 첫 번째 줄을 생성
 
-    for i in range(1, n):
-        prev = pascal[-1]
-        new_pascal = [1]
+    for i in range(1, n):         # 리스트의 0인덱스는 채워졌으니 그 다음 부터로 범위 설정 (두 번쨰 줄 부터)
+        prev = pascal[-1]         # 새로운 리스트는 바로 이전 행(직전 단계)을 가져옴
+        new_pascal = [1]          # 모든 행은 항상 1로 시작
 
-        for j in range(len(prev)-1):
-            new_pascal.append(prev[j] + prev[j+1])
-        new_pascal.append(1)
-        pascal.append(new_pascal)
+        for j in range(len(prev)-1):              # 기존 리스트의 길이에서 1을 뺀 범위에서
+            new_pascal.append(prev[j] + prev[j+1])     # (j)번째와 (j+1)번째를 더하므로, 반복은 (길이-1)만큼만 수행
+        new_pascal.append(1)                      # 마지막에 1을 추가
+        pascal.append(new_pascal)                 # 이 리스트 자체를 기존 pascal에 추가
 
     print(f'#{tc}')
-    for row in pascal:
+    for row in pascal:                  # 파스칼의 행을 언패킹 한 다음 출력
         print(*row)

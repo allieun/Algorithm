@@ -18,27 +18,27 @@ for tc in range(1, t+1):
     n= int(input())
     grid = [list(map(int, input().split())) for _ in range(n)]
 
-    dr = [-1, 1, 0, 0]
+    dr = [-1, 1, 0, 0]                       # 델타 방향 설정 (상하좌우)
     dc = [0, 0, -1, 1]
 
     for r in range(n):
         for c in range(n):
-            if grid[r][c] == 2:
-                for i in range(4):
-                    nr = r + dr[i]
-                    nc = c + dc[i]
+            if grid[r][c] == 2:              # n x n 배열에서 값이 2인 인덱스를 찾는다
+                for i in range(4):           # 범위가 4인이유는 위의 델타 값이 4개이기 때문 (0, 1, 2, 3)
+                    nr = r + dr[i]           # nc = next column / nr = next row
+                    nc = c + dc[i]           # nr과 nc는 기존의 위치에서 델타 방향으로 방향 전환(상하좌우)
 
-                    while 0 <= nr < n and 0 <= nc < n:
-                        if grid[nr][nc] == 1:
+                    while 0 <= nr < n and 0 <= nc < n:        # nr과 nc가 배열의 범위를 벗어나지 않았을 때 (배열 안에서 벽을 만날 때 까지)
+                        if grid[nr][nc] == 1:      # 벽을 만났을 때는 중단
                             break
-                        if grid[nr][nc] == 0:
-                            grid[nr][nc] = -1
+                        if grid[nr][nc] == 0:      # 괴물의 위치에섯 델타 이동을 했을 때 아무것도 없는 칸이라면
+                            grid[nr][nc] = -1      # 광선 공격범위에 포함되므로 -1로 변경
 
-                        nr += dr[i]
-                        nc += dc[i]
+                        nr += dr[i]                # nr과 nc를 델타 방향으로 한 칸씩 이동시키며 벽인지 아니면 빈 칸인지 체크
+                        nc += dc[i]                # 벽이라면 종료, 빈칸이라면 -1로 변경
 
     count = 0
     for row in grid:
-        count += row.count(0)
+        count += row.count(0)              # 2차원 배열의 행에서 0으로 값이 남아있는 곳들의 개수를 센 뒤 count 변수에 더함
 
     print(f'#{tc} {count}')

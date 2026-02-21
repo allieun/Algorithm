@@ -8,7 +8,7 @@
 
 a, b = input().split()
 
-a = a[::-1]                       # int 형태는 뒤집기가 안되기 떄문에 int(input())을 사용하면 안된다.
+a = a[::-1]                       # int 형태는 뒤집기가 안되기 떄문에 int(input())을 사용하면 안된다
 b = b[::-1]
 
 if a > b:

@@ -13,7 +13,7 @@ for i in range(1, len(counting)):    # 범위 설정을 이렇게 하는 이유:
 
 result = [0] * len(array)            # array의 요소들을 정렬해서 넣을 리스트 (오름차순으로)
 
-for num in reversed(array):
+for num in reversed(array):         # 기존 정렬에서 역순으로 순회 이유: 정렬의 안정성을 위해서 = 값들의 상대적 순서를 보존하기 위해서
     idx = counting[num]
     result[idx-1] = num
     counting[num] -= 1
