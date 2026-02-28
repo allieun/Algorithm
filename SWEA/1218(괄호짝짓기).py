@@ -13,33 +13,33 @@
 t = 10
 
 for tc in range(1, t+1):
-    len_char = int(input())
-    character = input()
-    stack= [0]*len_char
-    top = -1
-    answer = 1
+    len_char = int(input())            # 문자열 길이 입력받음
+    character = input()                # 괄호 문자열 입력 받음
+    stack= [0]*len_char                # 스택은 문자열 길이만큼으로 지정
+    top = -1                           # topdms -1로 지정 (아직 스택에 아무것도 안들어갔기 때문)
+    answer = 1                         # 기본적으로 정답은 1로 지정(맞았다는 가정으로 시작)
 
     for char in character:
-        if char in '({[<':
-            top += 1
+        if char in '({[<':             # 여는 괄호일 때는
+            top += 1                   # top 값에 1씩 추가하며 스택에 푸시
             stack[top] = char
-        elif char in ')}]>':
-            if top == -1:
-                answer = 0
+        elif char in ')}]>':           # 닫는 괄호 일 때
+            if top == -1:              # top 이 -1인 경우 = 스택에 아무것도 없다는 소리 = 여는 괄호가 이미 다 없어짐
+                answer = 0             # 짝이 맞지 않기 때문에 정답은 0
                 break
-            if char == ')' and stack[top] == '(':
+            if char == ')' and stack[top] == '(':          # 닫는 괄호 ) 일 때, 스택 탑이 ( 이라면 스택에서 pop
                 top -= 1
-            elif char == '}' and stack[top] == '{':
+            elif char == '}' and stack[top] == '{':        # 다른 괄호들 일 때도 마찬가지로 진행
                 top -= 1
             elif char == ']' and stack[top] == '[':
                 top -= 1
             elif char == '>' and stack[top] == '<':
                 top -= 1
             else:
-                answer = 0
+                answer = 0           # 그 이외의 경우 = 짝이 하나라도 안 맞는 경우  = 역시 실해
                 break
 
-    if top != -1:
+    if top != -1:                   # 모든 과정이 끝났는데 스택에 값이 남아 있다면 매칭되지 않는다는 의미이므로 실패
         answer = 0
 
     print(f'#{tc} {answer}')
