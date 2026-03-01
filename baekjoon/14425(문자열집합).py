@@ -6,7 +6,7 @@ n개의 문자열로 이루어진 집합 s에서 m 개의 문자열이 입력되
 
 n, m = map(int, input().split())
 
-s = set(input() for _ in range(n))
+s = set(input() for _ in range(n))        # 리스트를 사용하게 된다면 처리시간이 늘어나서 시간초과가 뜸
 
 count = 0
 
