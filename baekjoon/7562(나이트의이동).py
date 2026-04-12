@@ -7,33 +7,38 @@ import sys
 from collections import deque
 input = sys.stdin.readline
 
-dr = [-2, -1, 1, 2, 1, 2, -1, -2]
+# 나이트의 8방향 움직임
+dr = [-2, -1, 1, 2, 2, 1, -1, -2]
 dc = [1, 2, 2, 1, -1, -2, -2, -1]
 
-def bfs(l, start_r, start_c, target_r, target_c):
-    q = deque([(start_r, start_c)])
-    dist = [[-1]*l for _ in range(l)]
-    dist[start_r][start_c] = 0
+def bfs():
+    # 함수 내부에서 입력을 직접 받는 식으로 구성하면 가독성이 좋습니다.
+    size = int(input())
+    sr, sc = map(int, input().split())
+    tr, tc = map(int, input().split())
+
+    if sr == tr and sc == tc:
+        return 0
+
+    q = deque([(sr, sc)])
+    # l 대신 size를 사용하여 숫자 1과의 혼동을 방지
+    dist = [[-1] * size for _ in range(size)]
+    dist[sr][sc] = 0
 
     while q:
-        current_r, current_c = q.popleft()
-        if current_r == target_r and current_c == target_c:
-            return dist[current_r][current_c]
+        cr, cc = q.popleft()
+        
+        if cr == tr and cc == tc:
+            return dist[cr][cc]
 
         for i in range(8):
-            nr = current_r + dr[i]
-            nc = current_c + dc[i]
-            if 0 <= nr < l and 0 <= nc < l and dist[nr][nc] == -1:
-                dist[nr][nc] = dist[current_r][current_c] + 1
+            nr, nc = cr + dr[i], cc + dc[i]
+            
+            if 0 <= nr < size and 0 <= nc < size and dist[nr][nc] == -1:
+                dist[nr][nc] = dist[cr][cc] + 1
                 q.append((nr, nc))
-
+    return 0
 
 t = int(input())
 for _ in range(t):
-    l = int(input())
-    start_r, start_c = map(int, input().split())
-    target_r, target_c = map(int, input().split())
-
-    result = bfs(l, start_r, start_c, target_r, target_c)
-
-    print(result)
+    print(bfs())
