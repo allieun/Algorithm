@@ -34,7 +34,6 @@ for _ in range(t):
     start_r, start_c = map(int, input().split())
     target_r, target_c = map(int, input().split())
 
-
     result = bfs(l, start_r, start_c, target_r, target_c)
 
     print(result)
