@@ -16,44 +16,40 @@ import sys
 from collections import deque
 input = sys.stdin.readline
 
-r, c = map(int, input().split())
-grid = [list(map(int, input().split())) for _ in range(r)]
-
-time = 0
-last_cheese_count = 0
-
 dr = [-1, 1, 0, 0]
 dc = [0, 0, -1, 1]
 
-
 def bfs():
-    visited = [[False]*c for _ in range(r)]
+    visited = [[False]*m for _ in range(n)]
     q = deque([(0, 0)])
     visited[0][0] = True
-
     melt_cheese = []
-
     while q:
-        current_r, current_c = q.popleft()
+        curr_r, curr_c = q.popleft()
         for i in range(4):
-            nr = current_r + dr[i]
-            nc = current_c + dc[i]
-            if 0 <= nr < r and 0 <= nc < c and not visited[nr][nc]:
+            nr, nc = curr_r + dr[i], curr_c + dc[i]
+            if 0 <= nr < n and 0 <= nc < m and not visited[nr][nc]:
                 if grid[nr][nc] == 1:
                     visited[nr][nc] = True
                     melt_cheese.append((nr, nc))
                 else:
                     visited[nr][nc] = True
                     q.append((nr, nc))
-    for melt_r, melt_c in melt_cheese:
-        grid[melt_r][melt_c] = 0
+
+    for cheese_r, cheese_c in melt_cheese:
+        grid[cheese_r][cheese_c] = 0
+
+
+
+n, m = map(int, input().split())
+grid = [list(map(int, input().split())) for _ in range(n)]
+time = 0
+last_cheese_count = 0
 
 while True:
     total_cheese = sum(row.count(1) for row in grid)
-
     if total_cheese == 0:
         break
-
     last_cheese_count = total_cheese
     bfs()
     time += 1
