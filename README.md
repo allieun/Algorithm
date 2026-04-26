@@ -1,7 +1,7 @@
 # 📘 Algorithm Practice & Code Review Repository
 
 이 저장소는  
-**백준, SW Expert Academy, 프로그래머스, 코드트리** 등의 알고리즘 문제를 풀이하고,  
+**백준, SW Expert Academy, 프로그래머스** 의 알고리즘 문제를 풀이하고,  
 코드 리뷰와 반복 복습을 통해 실력을 향상시키기 위한 개인 학습 공간입니다.
 
 ---
